@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Scraper</title>
+    </style>
+  </head>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+    var socket = io();
+    socket.on('htmlTweets', (htmlTweets) => {
+      document.getElementById("tweets").innerHTML = "";
+      htmlTweets.forEach((tweet) => {
+        $('#tweets').append(tweet);
+      });
+    });
+
+    function searchTweets() {
+      let query = document.getElementById('query').value;
+      let resultType = document.getElementById('resultType').value;
+      let count = document.getElementById('count').value
+      if ((query !== "") && (count > 0 && count < 50) && (resultType === "popular" || resultType === "mixed")) {
+        let searchInfo = {
+          query,
+          resultType,
+          count
+        }
+        socket.emit('searchInfo', searchInfo);
+      }
+      else {
+        alert("Something went wrong!");
+      }
+    }
+  </script>
+  <body>
+    <div id="search">
+        Query: <input type="text" id="query" name="query"><br>
+        Result type (popular or mixed): <input type="text" id="resultType" name="resultType"><br>
+        Query: <input type="text" id="count" name="count"><br>
+        <button type="button" onclick="searchTweets()">Submit</button>
+    </div>
+    <div id="tweets">
+    </div>
+  </body>
+</html>
