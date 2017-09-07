@@ -1,7 +1,24 @@
 body {
 	text-align: center;
 	margin: 0 auto;
-	background-color: grey;
 	position: relative;
 	top:50px;
+}
+#tweets {
+	float: left;
+}
+h1 {
+	font-size: 30px;
+}
+button {
+	margin: 0 5px;
+}
+img {
+	min-width: 350px !important;
+}
+#query {
+	width: 500px;
+}
+#count {
+	width: 50px;
 }
