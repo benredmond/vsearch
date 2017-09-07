@@ -1,17 +1,29 @@
 <!doctype html>
 <html>
+
   <head>
     <title>Test</title>
-    </style>
+    <link rel="stylesheet" type="text/css" href="/public/styles.css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   </head>
+
   <script src="/socket.io/socket.io.js"></script>
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
   <script>
+    alert("HIIIII");
     var socket = io();
     socket.on('htmlTweets', (htmlTweets) => {
       document.getElementById("tweets").innerHTML = "";
       htmlTweets.forEach((tweet) => {
         $('#tweets').append(tweet);
+      });
+    });
+    socket.on('htmlYT', (YTlinks) => {
+      document.getElementById("ytlinks").innerHTML = "";
+      YTlinks.forEach((link) => {
+        $('#ytlinks').append('<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/'+link+'\" frameborder=\"0\" allowfullscreen></iframe>');
       });
     });
 
@@ -32,14 +44,19 @@
       }
     }
   </script>
+
   <body>
     <div id="search">
         Query: <input type="text" id="query" name="query"><br>
         Result type (popular or mixed): <input type="text" id="resultType" name="resultType"><br>
-        Query: <input type="text" id="count" name="count"><br>
-        <button type="button" onclick="searchTweets()">Submit</button>
+        Count: <input type="text" id="count" name="count"><br>
+        <button class = "btn btn-primary" type="button" onclick="searchTweets()">Submit</button>
     </div>
     <div id="tweets">
     </div>
+    <div id="ytlinks">
+    HELLO MAN
+    </div>
   </body>
+
 </html>
