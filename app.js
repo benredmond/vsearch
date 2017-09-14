@@ -1,9 +1,11 @@
+require('dotenv').config();
 const app = require('express')();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const request = require('request');
 const twitter = require('./twitterScrape.js');
 const utube = require('./utube.js');
+const reddit = require('./reddit.js');
 var express = require('express');
 var path = require('path');
 // Send index.html file when user goes to the webpage
@@ -25,6 +27,9 @@ io.on('connection', function(socket){
     utube.scrapeYT((htmlYT) => {
       socket.emit('htmlYT',htmlYT);
     }, searchInfo.query, searchInfo.resultType, searchInfo.count);
+    // reddit.scrapeReddit((redditPosts) => {
+    //   socket.emit('htmlReddit', redditPosts);
+    // }, searchInfo.query, searchInfo.resultType, searchInfo.count);
   });
 });
 

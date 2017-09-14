@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Basic Calulator</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+<h1>Basic Calculator</h1>
+	<p>Trying to learn nodejs right here.</p>
+	<form>
+		<input type="text" name="firstNum" id = "firstNum">
+		<input type="text" name="secondNum" id = "secondNum">
+		<button class = "btn btn-primary" type="button" onclick="addition()">Add</button>
+		<div id = "sum"></div>
+	</form>
+	<script>
+		var socket = io.connect();
+		function addition() {
+			let firstNum = document.getElementById('firstNum').value;
+			let secondNum = document.getElementById('secondNum').value;
+			nums = {
+				firstNum,
+				secondNum
+			};
+			socket.emit('Add', nums);
+		}
+		socket.on('addedHTML', (totalNum) => {
+		document.getElementById('sum').innerHTML = "";
+		$('#sum').append("The total sum is " + totalNum);
+		});
+	</script>
+</body>
+</html>
