@@ -1,11 +1,16 @@
 <!doctype html>
 <html>
+
   <head>
-    <title>Scraper</title>
-    </style>
+    <title>VSearch</title>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/styles.css">
   </head>
-  <script src="/socket.io/socket.io.js"></script>
+
+  <script src="/socket.io/socket.io.js"></script> <!-- Never forget to add this. again. -->
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
   <script>
     var socket = io();
     socket.on('htmlTweets', (htmlTweets) => {
@@ -14,10 +19,28 @@
         $('#tweets').append(tweet);
       });
     });
+    socket.on('htmlYT', (YTlinks) => {
+      document.getElementById("ytlinks").innerHTML = "";
+      YTlinks.forEach((link) => {
+        $('#ytlinks').append('<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/'+link+'\" frameborder=\"0\" allowfullscreen></iframe>');
+      });
+    });
+    socket.on('ibmNews', (ibmNews) => {
+      document.getElementById('ibmNews').innerHTML = "";
+      ibmNews.forEach((news) => {
+        $('#ibmNews').append('');
+      });
+    });
 
     function searchTweets() {
       let query = document.getElementById('query').value;
-      let resultType = document.getElementById('resultType').value;
+      let rates = document.getElementsByName('type')[0].value;
+      let resultType = "popular";
+      if(document.getElementsByName('type')[0].value=== "popular"){
+          resultType = "popular";
+      } else {
+        resultType = "mixed";
+      }
       let count = document.getElementById('count').value
       if ((query !== "") && (count > 0 && count < 50) && (resultType === "popular" || resultType === "mixed")) {
         let searchInfo = {
@@ -32,14 +55,25 @@
       }
     }
   </script>
+
   <body>
+  <img width="40%" src="/public/logov.png">
     <div id="search">
-        Query: <input type="text" id="query" name="query"><br>
-        Result type (popular or mixed): <input type="text" id="resultType" name="resultType"><br>
-        Query: <input type="text" id="count" name="count"><br>
-        <button type="button" onclick="searchTweets()">Submit</button>
+        <input type="text" placeholder = "Your brain is wider than the sky." id="query" name="query">
+        <button class = "btn btn-success" type="button" onclick="searchTweets()">Search</button>
+<!--         <label>Result type (popular or mixed): </label><input type="text" id="resultType" name="resultType"><br> -->
+        <form action = "">
+          <input type = "radio" name = "type" value = "popular"> Popular
+          <input type = "radio" name = "type" value = "mixed"> Mixed
+        </form>
+        <label>Count: </label><input placeholder = "e.g. 4" type = "text" id = "count" name = "count"><i> (limit 30)</i>
+        <br>
     </div>
-    <div id="tweets">
+    <div id = "tweets">
     </div>
+    <div id = "ytlinks">
+    </div>
+    <div id = "ibmNews"></div>
   </body>
+
 </html>
