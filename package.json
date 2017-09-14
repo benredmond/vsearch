@@ -9,10 +9,14 @@
   "author": "Ben Redmond",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^4.0.0",
     "express": "^4.15.2",
     "moment": "^2.18.1",
     "request": "^2.81.0",
+    "snoowrap": "^1.14.2",
     "socket.io": "^2.0.3",
-    "twitter": "^1.7.1"
+    "twitter": "^1.7.1",
+    "watson-developer-cloud": "^2.39.0",
+    "youtube-search": "^1.0.10"
   }
 }

@@ -1,8 +1,10 @@
+require('dotenv').load();
 var search = require('youtube-search');
+
 const NUM_RESULTS = 10;
 var opts = {
 	maxResults: NUM_RESULTS,
-	key: 'AIzaSyBKATwU4mBTh_EzyQGEscS6rbhxE-uYwYQ'
+	key: process.env.YT_KEY
 };
 
 module.exports = { //not sure I can do anything with resultType

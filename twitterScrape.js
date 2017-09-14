@@ -1,3 +1,5 @@
+require('dotenv').load();
+
 const Twitter = require('twitter');
 const moment = require('moment');
 const request = require('request');
@@ -10,10 +12,10 @@ module.exports = {
     let weekAgoFormatted = moment(weekAgo).format('YYYY-MM-DD');
 
     let client = new Twitter({
-      consumer_key: 'h6QhlulCmOEv9iRqtWuDrm5yT',
-      consumer_secret: 'oYlOl4EWDrKS9YbMfN8968QVJ2JwKQededYpbyUENjQta15BaE',
-      access_token_key: '2704444296-B0E7yOWwWWMNVENAOyJpuXW3jCqwgM8afBtVYpI',
-      access_token_secret: '8iQjHW9JQQrKGd7XTObMOjEXeZVJQv5eKjSJEeXzhtgk4'
+      consumer_key: process.env.CONSUMER_KEY,
+      consumer_secret: process.env.CONSUMER_SECRET,
+      access_token_key: process.env.ACCESS_TOKEN_KEY,
+      access_token_secret: process.env.ACCESS_TOKEN_SECRET
     });
 
     client.get('search/tweets', {q: `${searchQuery} since:${weekAgoFormatted} -filter:retweets`, result_type: resultType, count: tweetsToFind}, function(error, tweets, response) {
