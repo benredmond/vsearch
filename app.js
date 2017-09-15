@@ -6,8 +6,10 @@ const request = require('request');
 const twitter = require('./twitterScrape.js');
 const utube = require('./utube.js');
 const reddit = require('./reddit.js');
+const news = require('./newsScrape.js');
 var express = require('express');
 var path = require('path');
+
 // Send index.html file when user goes to the webpage
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
@@ -27,6 +29,10 @@ io.on('connection', function(socket){
     utube.scrapeYT((htmlYT) => {
       socket.emit('htmlYT',htmlYT);
     }, searchInfo.query, searchInfo.resultType, searchInfo.count);
+    
+    news.getNews((news) => {
+      console.log(news);
+    }, searchInfo.query, searchInfo.count);
     // reddit.scrapeReddit((redditPosts) => {
     //   socket.emit('htmlReddit', redditPosts);
     // }, searchInfo.query, searchInfo.resultType, searchInfo.count);
