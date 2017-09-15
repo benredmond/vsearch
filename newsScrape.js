@@ -1,8 +1,8 @@
 var DiscoveryV1 = require('watson-developer-cloud/discovery/v1');
 
 var discovery = new DiscoveryV1({
-  username: 'dde1e968-c669-41f0-b025-52b85cb7bd1e',
-  password: '6yzNVaxoljL3',
+  username: '*******',
+  password: '*******',
   version: 'v1',
   version_date: '2017-09-07'
 });
