@@ -1,8 +1,8 @@
 var DiscoveryV1 = require('watson-developer-cloud/discovery/v1');
 
 var discovery = new DiscoveryV1({
-  username: '*******',
-  password: '*******',
+  username: process.env.IBM_USER,
+  password: process.env.IBM_PASS,
   version: 'v1',
   version_date: '2017-09-07'
 });
@@ -44,11 +44,12 @@ function getNews(callback, query, count) {
         if(push) {
           let newsInfo = {
             headline: article.title,
-            url: article.url
+            url: article.url,
+            img: article.main_image_url,
+            body: article.text
           }
           news.push(newsInfo);
           newsLinks.push(article.url);
-
         }
       });
     }
