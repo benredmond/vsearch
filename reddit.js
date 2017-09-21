@@ -9,7 +9,7 @@ const r = new snoowrap({
   password: process.env.REDDIT_PASS
 });
 
-module.exports = { //This is a wip, this part doesn't work yet.
+module.exports = { //This is a wip, this part doesn't work yet. 
 	scrapeReddit: function(callback, query, resultType, count) {
 		var titles = [];
 		var wordsInTitle = [];
