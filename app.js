@@ -22,14 +22,16 @@ io.on('connection', function(socket){
       embedTweets((htmlTweets) => {
         socket.emit('htmlTweets', htmlTweets);
       }, searchInfo, tweetLinks);
-    },
-    searchInfo.query, searchInfo.resultType, searchInfo.count);
+    }, searchInfo.query, searchInfo.resultType, searchInfo.count);
+
     utube.scrapeYT((htmlYT) => {
       socket.emit('htmlYT',htmlYT);
     }, searchInfo.query, searchInfo.resultType, searchInfo.count);
-    // reddit.scrapeReddit((redditPosts) => {
-    //   socket.emit('htmlReddit', redditPosts);
-    // }, searchInfo.query, searchInfo.resultType, searchInfo.count);
+
+    reddit.scrapeReddit((redditPosts) => {
+      socket.emit('htmlReddit', redditPosts);
+    }, searchInfo.query, searchInfo.resultType, searchInfo.count);
+    
   });
 });
 
