@@ -29,21 +29,19 @@ io.on('connection', function(socket){
     utube.scrapeYT((htmlYT) => {
       socket.emit('htmlYT',htmlYT);
     }, searchInfo.query, searchInfo.resultType, searchInfo.count);
-<<<<<<< HEAD
 
     reddit.scrapeReddit((redditPosts) => {
       socket.emit('htmlReddit', redditPosts);
     }, searchInfo.query, searchInfo.resultType, searchInfo.count);
     
-=======
     
     news.getNews((news) => {
       console.log(news);
     }, searchInfo.query, searchInfo.count);
-    // reddit.scrapeReddit((redditPosts) => {
-    //   socket.emit('htmlReddit', redditPosts);
-    // }, searchInfo.query, searchInfo.resultType, searchInfo.count);
->>>>>>> e190465251e7234e2cce62344ec147797f5d611e
+    
+    reddit.scrapeReddit((redditPosts) => {
+      socket.emit('htmlReddit', redditPosts);
+    }, searchInfo.query, searchInfo.resultType, searchInfo.count);
   });
 });
 
